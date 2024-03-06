@@ -32,7 +32,7 @@ class Category(BaseModel):
 
     def __str__(self):
         formatted_date = datetime.strftime(self.created_at, '%y,%m,%d-%H:%M:%S')
-        return f'{self.name}-{formatted_date}'
+        return self.name
         # return f"{self.name} - {timezone.localtime(self.created_at)}"
     
     
