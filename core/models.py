@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 # from django.utils import timezone
 from datetime import datetime
 
@@ -24,8 +25,8 @@ class BaseModel(models.Model):
 class Category(BaseModel):
     name=models.CharField(max_length=50 )
     class Meta:
-        verbose_name='Category'
-        verbose_name_plural='Categories'
+        verbose_name=_('Category')
+        verbose_name_plural=_('Categories')
    
     
 
@@ -33,11 +34,13 @@ class Category(BaseModel):
         formatted_date = datetime.strftime(self.created_at, '%y,%m,%d-%H:%M:%S')
         return f'{self.name}-{formatted_date}'
         # return f"{self.name} - {timezone.localtime(self.created_at)}"
+    
+    
 class Color(BaseModel):
     name=models.CharField(max_length=50)
     class Meta:
-        verbose_name='Color'
-        verbose_name_plural='Colors'
+        verbose_name=_('Color')
+        verbose_name_plural=_('Colors')
 
     def __str__(self):
         return self.name
@@ -53,8 +56,8 @@ class Product(BaseModel):
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name='Product'
-        verbose_name_plural='Products'
+        verbose_name=_('Product')
+        verbose_name_plural=_('Products')
 
     def __str__(self):
         return self.name

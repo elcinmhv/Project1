@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'malefashion.urls'
@@ -128,3 +130,17 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+gettext=lambda s: s
+LANGUAGES=(
+    ('az',gettext('Azerbaijani')),
+    ('en',gettext('English')),
+    ('tr',gettext('Turkish'))
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE='en'
+
+LOCALE_PATHS=[
+    os.path.join(BASE_DIR,'Locale'),
+]
