@@ -2,6 +2,9 @@
 {% load static%}
 (% load i18n %)
 {% block content%}
+{% block title %}
+{{ title }}
+{% endblock %}
     <!--================Home Banner Area =================-->
     <section class="banner_area">
       <div class="banner_inner d-flex align-items-center">
@@ -88,31 +91,31 @@
             </div>
           </form>
 
-
+          {% for contact in contacts %}
         </div>
-
         <div class="col-lg-4">
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-home"></i></span>
             <div class="media-body">
-              <h3>Buttonwood, California.</h3>
-              <p>Rosemead, CA 91770</p>
+              <h3>{{ contact.name }}</h3>
+              <p>{{ contact.address }}</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-tablet"></i></span>
             <div class="media-body">
-              <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
-              <p>Mon to Fri 9am to 6pm</p>
+              <h3><a href="tel:454545654">{{ contact.phone }}</a></h3>
+              <p>{{ contact.working_time }}</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3><a href="mailto:support@colorlib.com">support@colorlib.com</a></h3>
-              <p>Send us your query anytime!</p>
+              <h3><a href="mailto:support@colorlib.com">{{ contact.email }}</a></h3>
+              <p>{{ contact.text }}</p>
             </div>
           </div>
+          {% endfor %}
         </div>
       </div>
     </div>

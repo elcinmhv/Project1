@@ -2,6 +2,9 @@
 {% load static%}
 (% load i18n %)
 {% block content%}
+{% block title %}
+{{ title }}
+{% endblock %}
     <!--================Home Banner Area =================-->
     <section class="banner_area">
       <div class="banner_inner d-flex align-items-center">
@@ -10,11 +13,11 @@
             class="banner_content d-md-flex justify-content-between align-items-center"
           >
             <div class="mb-3 mb-md-0">
-              <h2>Blog</h2>
+              <h2>Blog {{ blog_count }}</h2>
               <p>Very us move be blessed multiply night</p>
             </div>
             <div class="page_link">
-              <a href="index.html">Home</a>
+              <a href="{% url 'index' %}">Home</a>
               <a href="blog.html">Blog </a>
             </div>
           </div>
@@ -29,30 +32,32 @@
           <div class="row">
               <div class="col-lg-8 mb-5 mb-lg-0">
                   <div class="blog_left_sidebar">
+                    {% for blog in blogs %}
                       <article class="blog_item">
                         <div class="blog_item_img">
-                          <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-1.jpg" alt="">
+                          <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
                           <a href="#" class="blog_item_date">
-                            <h3>15</h3>
-                            <p>Jan</p>
+                            <h3>{{ blog.created_at|date:'d' }}</h3>
+                            <p>{{ blog.created_at|date:'M' }}</p>
                           </a>
                         </div>
                         
                         <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>Google inks pact for new 35-storey office</h2>
+                            <a class="d-inline-block" href="{% url 'blogdetails' blog.id %}">
+                                <h2>{{ blog.title }}</h2>
                             </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is that he earth it first without heaven in place seed it second morning saying.</p>
+                            <p>{{ blog.description }}</p>
                             <ul class="blog-info-link">
                               <li><a href="#"><i class="ti-user"></i> Travel, Lifestyle</a></li>
                               <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
                             </ul>
                         </div>
                       </article>
+                    {% endfor %}
                       
-                      <article class="blog_item">
+                      <!-- <article class="blog_item">
                         <div class="blog_item_img">
-                          <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-2.jpg" alt="">
+                          <img class="card-img rounded-0" src="{% static 'img/blog/main-blog/m-blog-2.jpg' %}" alt="">
                           <a href="#" class="blog_item_date">
                             <h3>15</h3>
                             <p>Jan</p>
@@ -73,7 +78,7 @@
 
                       <article class="blog_item">
                         <div class="blog_item_img">
-                          <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-3.jpg" alt="">
+                          <img class="card-img rounded-0" src="{% static 'img/blog/main-blog/m-blog-3.jpg' %}" alt="">
                           <a href="#" class="blog_item_date">
                             <h3>15</h3>
                             <p>Jan</p>
@@ -94,7 +99,7 @@
 
                       <article class="blog_item">
                         <div class="blog_item_img">
-                          <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-4.jpg" alt="">
+                          <img class="card-img rounded-0" src="{% static 'img/blog/main-blog/m-blog-4.jpg' %}" alt="">
                           <a href="#" class="blog_item_date">
                             <h3>15</h3>
                             <p>Jan</p>
@@ -115,7 +120,7 @@
 
                       <article class="blog_item">
                         <div class="blog_item_img">
-                          <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-5.jpg" alt="">
+                          <img class="card-img rounded-0" src="{% static 'img/blog/main-blog/m-blog-5.jpg' %}" alt="">
                           <a href="#" class="blog_item_date">
                             <h3>15</h3>
                             <p>Jan</p>
@@ -132,7 +137,7 @@
                               <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
                             </ul>
                         </div>
-                      </article>
+                      </article> -->
                       
 
 
@@ -223,7 +228,7 @@
                       <aside class="single_sidebar_widget popular_post_widget">
                           <h3 class="widget_title">Recent Post</h3>
                           <div class="media post_item">
-                              <img src="img/blog/popular-post/post1.jpg" alt="post">
+                              <img src="{% static 'img/blog/popular-post/post1.jpg' %}" alt="post">
                               <div class="media-body">
                                   <a href="single-blog.html">
                                       <h3>From life was you fish...</h3>
@@ -232,7 +237,7 @@
                               </div>
                           </div>
                           <div class="media post_item">
-                              <img src="img/blog/popular-post/post2.jpg" alt="post">                              
+                              <img src="{% static 'img/blog/popular-post/post2.jpg' %}" alt="post">                              
                               <div class="media-body">
                                   <a href="single-blog.html">
                                       <h3>The Amazing Hubble</h3>
@@ -241,7 +246,7 @@
                               </div>
                           </div>
                           <div class="media post_item">
-                              <img src="img/blog/popular-post/post3.jpg" alt="post">                              
+                              <img src="{% static 'img/blog/popular-post/post3.jpg' %}" alt="post">                              
                               <div class="media-body">
                                   <a href="single-blog.html">
                                       <h3>Astronomy Or Astrology</h3>
@@ -250,7 +255,7 @@
                               </div>
                           </div>
                           <div class="media post_item">
-                              <img src="img/blog/popular-post/post4.jpg" alt="post">
+                              <img src="{% static 'img/blog/popular-post/post4.jpg' %}" alt="post">
                               <div class="media-body">
                                   <a href="single-blog.html">
                                       <h3>Asteroids telescope</h3>
@@ -295,32 +300,32 @@
                         <ul class="instagram_row flex-wrap">
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i1.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i1.png' %}" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i2.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i2.png' %}" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i3.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i3.png' %}" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i4.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i4.png' %}" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i5.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i5.png' %}" alt="">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                  <img class="img-fluid" src="img/instagram/widget-i6.png" alt="">
+                                  <img class="img-fluid" src="{% static 'img/instagram/widget-i6.png' %}" alt="">
                                 </a>
                             </li>
                         </ul>

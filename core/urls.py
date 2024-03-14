@@ -9,7 +9,7 @@ urlpatterns=[
    path('',index,name='index'),
    path('contact/',contact,name='contact'),
    path('blog/',blog,name='blog'),
-   path('blogdetails/',blogdetails,name='blogdetails'),
+   path('blogdetails/<int:blog_id>/',blogdetails,name='blogdetails'),
    path('elements/',elements,name='elements'),
    path('tracking/',tracking,name='tracking'),
    path('category/',category,name='category'),
@@ -22,3 +22,4 @@ urlpatterns=[
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
