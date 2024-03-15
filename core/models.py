@@ -103,6 +103,28 @@ class Contact(BaseModel):
     def __str__(self):
         return self.name
 
+class Setting(BaseModel):
+    name=models.CharField(max_length=50,null=True,blank=True)
+    address=models.CharField(max_length=100,null=True,blank=True)
+    phone=models.CharField(max_length=50,null=True,blank=True)
+    email=models.EmailField(null=True,blank=True)
+    facebook=models.URLField(null=True,blank=True)
+    twitter=models.URLField(null=True,blank=True)
+    pinterest=models.URLField(null=True,blank=True)
+    behance=models.URLField(null=True,blank=True)
+    logo=models.ImageField(upload_to='media/logo/')
+    blog_bg_image=models.ImageField(upload_to='media/blog_bg/')
+    blog_title=models.CharField(max_length=100,unique=True)
+    contact_title=models.CharField(max_length=100,)
+    
+
+    class Meta:
+        verbose_name='Setting'
+        verbose_name_plural='Settings'
+
+    def __str__(self):
+        return self.name
+
 
     
     

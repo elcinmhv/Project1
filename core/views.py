@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Blog,Contact
+from core.models import Blog,Contact, Setting
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -12,7 +12,7 @@ def contact(request):
 def blog(request):
     context={
         'blogs':Blog.objects.filter(is_active=True).order_by('-created_at'),
-        'title':'Blog Page',
+        'title':Setting.objects.get(id=1),
         'blog_count':Blog.objects.filter(is_active=True).count()
     }
     return render(request,'blog.html',context=context)

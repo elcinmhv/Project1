@@ -2,7 +2,7 @@ from typing import Any
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
-from core.models import Category,Product,Color,Blog,Contact
+from core.models import Category,Product,Color,Blog,Contact,Setting
 # Register your models here.
 
 admin.site.register(Category)
@@ -11,6 +11,7 @@ admin.site.register(Category)
 admin.site.register(Color)
 admin.site.register(Blog)
 admin.site.register(Contact)
+admin.site.register(Setting)
 
 
 
