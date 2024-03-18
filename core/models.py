@@ -75,6 +75,7 @@ class Product(BaseModel):
 Product.increaseprice() 
 
 class Blog(BaseModel):
+    slug=models.SlugField(max_length=100,unique=True,blank=True,null=True)
     title=models.CharField(max_length=100)
     description=models.TextField()
     image=models.ImageField(upload_to='media/blog/')
@@ -88,6 +89,14 @@ class Blog(BaseModel):
         return self.created_at.strftime('%d')
     def format_created_at2(self):
         return self.created_at.strftime('%b')
+    
+    def save(self,*args,**kwargs):
+        from django.template.defaultfilters import slugify
+        from core.utils.replace_letter import replace_letter
+        if self.slug or  not self.slug:
+                self.slug=replace_letter((slugify(self.title.lower())))
+
+        return super(Blog,self).save(*args,**kwargs)
     
 class Contact(BaseModel):
     name=models.CharField(max_length=50)
@@ -114,8 +123,8 @@ class Setting(BaseModel):
     behance=models.URLField(null=True,blank=True)
     logo=models.ImageField(upload_to='media/logo/')
     blog_bg_image=models.ImageField(upload_to='media/blog_bg/')
-    blog_title=models.CharField(max_length=100,unique=True)
-    contact_title=models.CharField(max_length=100,)
+    blog_title=models.CharField(max_length=100,null=True,blank=True)
+    contact_title=models.CharField(max_length=100,null=True,blank=True)
     
 
     class Meta:

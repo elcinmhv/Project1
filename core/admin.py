@@ -9,7 +9,7 @@ admin.site.register(Category)
 # admin.site.register(Product)
 
 admin.site.register(Color)
-admin.site.register(Blog)
+# admin.site.register(Blog)
 admin.site.register(Contact)
 admin.site.register(Setting)
 
@@ -60,8 +60,11 @@ class ProductAdmin(admin.ModelAdmin):
             return True
         return False
     
+class BlogAdmin(admin.ModelAdmin):
+    list_display=['title','slug']
+    fields=['title','description','image']
 
 
-
+admin.site.register(Blog,BlogAdmin)
 admin.site.register(Product,ProductAdmin)
 admin.site.site_header='MaleFashion administration'

@@ -44,7 +44,7 @@
                         </div>
                         
                         <div class="blog_details">
-                            <a class="d-inline-block" href="{% url 'blogdetails' blog.id %}">
+                            <a class="d-inline-block" href="{% url 'blogdetails' blog.slug %}">
                                 <h2>{{ blog.title }}</h2>
                             </a>
                             <p>{{ blog.description }}</p>

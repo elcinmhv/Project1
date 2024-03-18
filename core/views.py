@@ -16,8 +16,8 @@ def blog(request):
         'blog_count':Blog.objects.filter(is_active=True).count()
     }
     return render(request,'blog.html',context=context)
-def blogdetails(request,blog_id):
-    blog=Blog.objects.get(id=blog_id)
+def blogdetails(request,blog_slug):
+    blog=Blog.objects.get(slug=blog_slug)
     context={
         'title':blog.title,
         'blog':blog
