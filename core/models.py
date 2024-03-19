@@ -134,6 +134,23 @@ class Setting(BaseModel):
     def __str__(self):
         return self.name
 
+    
+class ContactUs(BaseModel):
+    message=models.TextField()
+    name=models.CharField(max_length=50)
+    email=models.EmailField()
+    subject=models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name='ContactUs'
+        verbose_name_plural='ContactUs'
+    
+    def __str__(self):
+        return self.name
+        
+
+        
+
 
     
     

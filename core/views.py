@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from core.models import Blog,Contact, Setting
+from core.forms import ContactUsForm
 # Create your views here.
 def index(request):
     return render(request,'index.html')
 def contact(request):
+    if request.method=='POST':
+        form=ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request,'contact.html',context={'contact_form':ContactUsForm})
     context={
+        'contact_form':ContactUsForm,
         'contacts':Contact.objects.filter(is_active=True),
         'title':'Contact Page',
     }
