@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static%}
+{% load custom_filter %}
 (% load i18n %)
 {% block content%}
 {% block title %}
@@ -33,6 +34,7 @@
           <div class="row">
               <div class="col-lg-8 mb-5 mb-lg-0">
                   <div class="blog_left_sidebar">
+                    {% get_blogs 0 9 1  as blogs %}
                     {% for blog in blogs %}
                       <article class="blog_item">
                         <div class="blog_item_img">
@@ -47,7 +49,7 @@
                             <a class="d-inline-block" href="{% url 'blogdetails' blog.slug %}">
                                 <h2>{{ blog.title }}</h2>
                             </a>
-                            <p>{{ blog.description }}</p>
+                            <p>{{ blog.truncate_desc}}</p>
                             <ul class="blog-info-link">
                               <li><a href="#"><i class="ti-user"></i> Travel, Lifestyle</a></li>
                               <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>

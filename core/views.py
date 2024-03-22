@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Blog,Contact, Setting
+from core.models import Blog,Contact, Setting,Product
 from core.forms import ContactUsForm
 # Create your views here.
 def index(request):
@@ -10,6 +10,8 @@ def contact(request):
         if form.is_valid():
             form.save()
             return render(request,'contact.html',context={'contact_form':ContactUsForm})
+        else:
+            print('Form errors:  ', form.errors)
     context={
         'contact_form':ContactUsForm,
         'contacts':Contact.objects.filter(is_active=True),
@@ -18,7 +20,7 @@ def contact(request):
     return render(request,'contact.html',context=context)
 def blog(request):
     context={
-        'blogs':Blog.objects.filter(is_active=True).order_by('-created_at'),
+        'blogs':Blog.objects.filter(is_active=True),
         'title':Setting.objects.get(id=1),
         'blog_count':Blog.objects.filter(is_active=True).count()
     }
@@ -35,7 +37,11 @@ def elements(request):
 def tracking(request):
     return render(request,'tracking.html')
 def category(request):
-    return render(request,'category.html')
+    context={
+        'categories':Product.objects.filter(is_active=True),
+        'title':'Category'
+    }
+    return render(request,'category.html' ,context=context )
 def singleproduct(request):
     return render(request,'single-product.html')
 def checkout(request):

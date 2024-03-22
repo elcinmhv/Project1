@@ -28,7 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
     # readonly_fields=['like']
     fieldsets=(
         ('Main Information', {
-            'fields':('name','price','category','color','size','is_active') 
+            'fields':('name','price','category','color','size','image','is_active') 
         }),
         ('Additional Information', {
             'fields':('like',)
@@ -65,8 +65,8 @@ class ProductAdmin(admin.ModelAdmin):
         return False
     
 class BlogAdmin(admin.ModelAdmin):
-    list_display=['title','slug']
-    fields=['title','description','image']
+    list_display=['title','slug',]
+    fields=['title','description','image','is_active']
 
 
 admin.site.register(Blog,BlogAdmin)

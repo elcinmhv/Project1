@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 # from django.utils import timezone
 from datetime import datetime
 from django.db.models import F 
+from django.utils.text import Truncator
 
 
 SIZE=(
@@ -56,6 +57,7 @@ class Product(BaseModel):
     size=models.CharField(max_length=50,choices=SIZE,default='M')
     like=models.IntegerField(default=0)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    image=models.ImageField(upload_to='media/product/')
 
     class Meta:
         verbose_name=_('Product')
@@ -97,6 +99,14 @@ class Blog(BaseModel):
                 self.slug=replace_letter((slugify(self.title.lower())))
 
         return super(Blog,self).save(*args,**kwargs)
+    def truncate_desc(self):
+        desc_words=self.description.split(' ')
+        truncated_words=' '.join(desc_words[:4])
+        if len(truncated_words)<=40 and len(desc_words) >= 4:
+            return Truncator(truncated_words).chars(40)+('...')
+        else:
+            return Truncator(truncated_words).chars(40)
+
     
 class Contact(BaseModel):
     name=models.CharField(max_length=50)
