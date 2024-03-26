@@ -1,30 +1,8 @@
 {% load static %}
+{% load i18n %}
 
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" />
-  <title>Eiser ecommerce|Template</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}" />
-  <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}" />
-  <!-- main css -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
-</head>
 
 <body>
   <!--================Header Menu Area =================-->
@@ -32,28 +10,44 @@
     <div class="top_menu">
       <div class="container">
         <div class="row">
-          <div class="col-lg-7">
+          <div class="col-lg-6">
             <div class="float-left">
               <p>Phone: +01 256 25 235</p>
               <p>email: info@eiser.com</p>
             </div>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-6">
             <div class="float-right">
+             
               <ul class="right_side">
+                <li style="background-color:green;">
+                  <a href="cart.html">
+                    <strong>sign in</strong>
+                  </a>
+                </li>
+                <li style="background-color:green;">
+                  <a href="{% url 'register' %}">
+                    <strong>sign up</strong>
+                  </a>
+                </li>
                 <li>
                   <a href="cart.html">
-                    gift card
+                    <strong>gift card</strong>
                   </a>
                 </li>
                 <li>
                   <a href="tracking.html">
-                    track order
+                    <strong>track order</strong>
                   </a>
                 </li>
                 <li>
                   <a href="contact.html">
-                    Contact Us
+                    <strong>Contact Us</strong>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'faq' %}" >
+                    <strong>FAQ's</strong>
                   </a>
                 </li>
               </ul>
@@ -75,6 +69,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
             <div class="row w-100 mr-0">
@@ -123,9 +118,28 @@
                   </li>
                 </ul>
               </div>
+              
 
               <div class="col-lg-5 pr-0">
                 <ul class="nav navbar-nav navbar-right right_nav pull-right">
+                  <div>
+                  <li style="margin: 20px;">
+                  <form id="languageForm"  action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <select style="width: 100px;height: 30px;border-radius: 15%;border: none;color:brown;font-size: 18px; " name="language" id="language" onchange="this.form.submit()">
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list  for LANGUAGES as languages %}
+                      {% for language in languages %}
+                      <option value="{{ language.code }}"   {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ language.name_local }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                </li>
+              </div>
                   <li class="nav-item">
                     <a href="#" class="icons">
                       <i class="ti-search" aria-hidden="true"></i>
@@ -149,6 +163,7 @@
                       <i class="ti-heart" aria-hidden="true"></i>
                     </a>
                   </li>
+                  
                 </ul>
               </div>
             </div>

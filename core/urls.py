@@ -1,7 +1,9 @@
 from django.urls import path
-from core.views import index,contact,blog,blogdetails,elements,tracking,category,singleproduct,checkout,cart
-from django.conf.urls.static import static
+from core.views import index,contact,blog,blogdetails,elements,tracking,category,singleproduct,checkout,cart,faq
 from django.conf import settings
+from core import views
+from django.views.i18n import set_language
+
 
 
 
@@ -15,11 +17,12 @@ urlpatterns=[
    path('category/',category,name='category'),
    path('singleproduct/',singleproduct,name='single-product'),
    path('checkout/',checkout,name='checkout'),
-   path('cart/',cart,name='cart')
+   path('cart/',cart,name='cart'),
+   path('faq/', faq, name='faq'),
+   path('set_language',set_language,name='set_language')
+
    
 
    
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

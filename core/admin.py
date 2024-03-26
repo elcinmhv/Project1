@@ -3,8 +3,10 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from core.models import (
-    Category,Product,Color,Blog,Contact,Setting,ContactUs
+    Category,Product,Color,Blog,Contact,Setting,ContactUs,
+    FAQ
 )
+from modeltranslation.admin import TranslationAdmin
 # Register your models here.
 
 admin.site.register(Category)
@@ -14,6 +16,7 @@ admin.site.register(Color)
 # admin.site.register(Blog)
 admin.site.register(Contact)
 admin.site.register(Setting)
+# admin.site.register(FAQ)
 
 
 
@@ -63,12 +66,19 @@ class ProductAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return True
         return False
-    
-class BlogAdmin(admin.ModelAdmin):
+# @admin.register(Blog)
+class BlogAdmin(TranslationAdmin):
     list_display=['title','slug',]
     fields=['title','description','image','is_active']
 
 
+class FAQAdmin(TranslationAdmin):
+    list_display=['question']
+    fields=['question','answer','is_active']
+
+
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Product,ProductAdmin)
+admin.site.register(FAQ,FAQAdmin)
 admin.site.site_header='MaleFashion administration'
+admin.site.site_title='MaleFashion administration'

@@ -1,6 +1,6 @@
 from typing import Iterable
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 # from django.utils import timezone
 from datetime import datetime
 from django.db.models import F 
@@ -82,8 +82,8 @@ class Blog(BaseModel):
     description=models.TextField()
     image=models.ImageField(upload_to='media/blog/')
     class Meta:
-        verbose_name='Blog'
-        verbose_name_plural='Blogs'
+        verbose_name=_('Blog')
+        verbose_name_plural=_('Blogs')
         ordering=('created_at',)
     def __str__(self):
         return self.title
@@ -117,8 +117,8 @@ class Contact(BaseModel):
     text=models.TextField()
     
     class Meta:
-        verbose_name='Contact'
-        verbose_name_plural='Contacts'
+        verbose_name=_('Contact')
+        verbose_name_plural=_('Contacts')
     def __str__(self):
         return self.name
 
@@ -138,8 +138,8 @@ class Setting(BaseModel):
     
 
     class Meta:
-        verbose_name='Setting'
-        verbose_name_plural='Settings'
+        verbose_name=_('Setting')
+        verbose_name_plural=_('Settings')
 
     def __str__(self):
         return self.name
@@ -152,11 +152,20 @@ class ContactUs(BaseModel):
     subject=models.CharField(max_length=50)
 
     class Meta:
-        verbose_name='ContactUs'
-        verbose_name_plural='ContactUs'
+        verbose_name=_('ContactUs')
+        verbose_name_plural=_('ContactUs')
     
     def __str__(self):
         return self.name
+    
+class FAQ(BaseModel):
+    question=models.CharField(max_length=100)
+    answer=models.TextField()
+    class Meta:
+        verbose_name='FAQ'
+        verbose_name_plural='FAQs'
+    def __str__(self):
+        return self.question
         
 
         

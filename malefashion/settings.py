@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'rosetta',
+    'user',
 ]
     
     
@@ -49,12 +51,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+     'django.middleware.locale.LocaleMiddleware', #lang
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+   
 ]
 
 ROOT_URLCONF = 'malefashion.urls'
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'malefashion.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'core/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'core/templates',)],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,5 +146,7 @@ LANGUAGES=(
 MODELTRANSLATION_DEFAULT_LANGUAGE='en'
 
 LOCALE_PATHS=[
-    os.path.join(BASE_DIR,'Locale'),
+    os.path.join(BASE_DIR,'locale'),
 ]
+
+AUTH_USER_MODEL='user.MyUser'

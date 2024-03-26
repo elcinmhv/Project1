@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-02 20:10+0400\n"
+"POT-Creation-Date: 2024-03-25 08:23+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,45 +18,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\core\models.py:28
+#: .\core\models.py:31
 msgid "Category"
-msgstr "Kategori"
+msgstr "Category"
 
-#: .\core\models.py:29
+#: .\core\models.py:32
 msgid "Categories"
-msgstr "Kategoriler"
+msgstr "Categories"
 
-#: .\core\models.py:40
+#: .\core\models.py:45
 msgid "Color"
-msgstr "Renk"
+msgstr "Color"
 
-#: .\core\models.py:41
+#: .\core\models.py:46
 msgid "Colors"
-msgstr "Renkler"
+msgstr "Colors"
 
-#: .\core\models.py:57
+#: .\core\models.py:63
 msgid "Product"
-msgstr "Ürün"
+msgstr "Product"
 
-#: .\core\models.py:58
+#: .\core\models.py:64
 msgid "Products"
-msgstr "Ürünler"
+msgstr "Products"
 
-#: .\core\templates\contact.html:13
-msgid "Contact Us"
+#: .\core\models.py:85
+msgid "Blog"
 msgstr ""
 
-#: .\malefashion\settings.py:137
-msgid "Azerbaijani"
-msgstr "Azerbaycanca"
+#: .\core\models.py:86
+msgid "Blogs"
+msgstr ""
 
-#: .\malefashion\settings.py:138
-msgid "English"
-msgstr "İngilizce"
+#: .\core\models.py:120
+msgid "Contact"
+msgstr ""
+
+#: .\core\models.py:121
+msgid "Contacts"
+msgstr ""
+
+#: .\core\models.py:141
+msgid "Setting"
+msgstr ""
+
+#: .\core\models.py:142
+msgid "Settings"
+msgstr ""
+
+#: .\core\models.py:155 .\core\models.py:156
+msgid "ContactUs"
+msgstr ""
+
+#: .\core\templates\index.html:42
+msgid "Free Delivery"
+msgstr ""
+
+#: .\core\templates\index.html:44
+msgid "Shall open divide a one"
+msgstr ""
+
+#: .\core\templates\index.html:52
+msgid "Alway support"
+msgstr ""
+
+#: .\core\templates\index.html:78
+msgid "Featured product"
+msgstr ""
 
 #: .\malefashion\settings.py:139
+msgid "Azerbaijani"
+msgstr ""
+
+#: .\malefashion\settings.py:140
+msgid "English"
+msgstr ""
+
+#: .\malefashion\settings.py:141
 msgid "Turkish"
-msgstr "Türkçe"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"

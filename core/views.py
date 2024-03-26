@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Blog,Contact, Setting,Product
+from core.models import Blog,Contact, Setting,Product,FAQ
 from core.forms import ContactUsForm
 # Create your views here.
 def index(request):
@@ -48,3 +48,10 @@ def checkout(request):
     return render(request,'checkout.html')
 def cart(request):
     return render(request,'cart.html')
+
+
+def faq(request):
+    context={
+        'faqs':FAQ.objects.filter(is_active=True),
+    }
+    return render(request,'faq.html',context=context)
