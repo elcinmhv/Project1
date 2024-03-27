@@ -25,14 +25,17 @@ from django.conf.urls.static import static
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('',include(core_urls)),
-    # path('i18n/',include('django.conf.urls.i18n'))
+    
+    
 ]
 
 
 urlpatterns += i18n_patterns(
      path('admin/', admin.site.urls),
      path('',include(core_urls)),
-     path('',include(user_urls))
+     path('',include('user.urls')),
+     path('rosetta/',include('rosetta.urls')),
+     path('i18n/',include('django.conf.urls.i18n'))
 
 )
 

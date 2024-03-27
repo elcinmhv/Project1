@@ -32,15 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation',
+    'modeltranslation', #lang
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rosetta', #rosetta
+    #apps
     'core',
-    'rosetta',
     'user',
 ]
     
@@ -65,7 +66,7 @@ ROOT_URLCONF = 'malefashion.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'core/templates',)],
+        'DIRS':[os.path.join(BASE_DIR, 'core/templates'),os.path.join(BASE_DIR, 'user/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
