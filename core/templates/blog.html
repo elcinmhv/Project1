@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% load static%}
-{% load custom_filter %}
+{% load static %}
 {% load i18n %}
-{% block content%}
+{% load custom_filter %}
+
+
+
 {% block title %}
   {{ title }}
 {% endblock %}
+{% block content%}
 
     <!--================Home Banner Area =================-->
     <section class="banner_area">
@@ -15,7 +18,7 @@
             class="banner_content d-md-flex justify-content-between align-items-center"
           >
             <div class="mb-3 mb-md-0">
-              <h2>Blog {{ blog_count }}</h2>
+              <h2>Blog sayı:{% if blog_count %}{{ blog_count }}{% endif %}</h2>
               <p>Very us move be blessed multiply night</p>
             </div>
             <div class="page_link">
@@ -27,15 +30,53 @@
       </div>
     </section>
     <!--================End Home Banner Area =================-->
-
+    <div style="margin-left: 230px; margin-top: 100px; padding-top: 50px;">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          {% csrf_token %}
+          <input value="{% if start_date %}{{ start_date }}{% endif %}" name="start_date" type="date" class="form-control" style="width: auto; max-width: 120px;" placeholder="başlanğıc tarixi">
+          <input value="{% if end_date %}{{ end_date }}{% endif %}"name="end_date" type="date" class="form-control" style="width: auto; max-width: 120px;" placeholder="bitiş tarixi">
+          <select name="category" class=""  style="width: auto; max-width: 120px;">
+            <option value="">
+              Seçin...
+            </option>
+            {% for category in categories %}
+            <option value="{{ category.id }}">
+              {{ category.name }}
+            </option>
+            {% endfor %}
+          </select>
+          <input value="{% if user_input %}{{ user_input }}{% endif %}" name="blog_search" placeholder="bloqa görə axtarış..." class="form-control" style="flex-grow: 1; max-width: 300px;">
+          <div class="input-group-append">
+            <button class="btn" type="submit"><i class="ti-search"></i></button>
+          </div>
+        </div>
+      </form>
+      {% if  request.user.user_role == 'menejer' %}
+      <form action="{% url 'export_blogs_excel' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Excell Download</button>
+      </form>
+      {% endif %}
+    </div>
+    
+    
   <!--================Blog Area =================-->
   <section class="blog_area section_gap">
       <div class="container">
           <div class="row">
               <div class="col-lg-8 mb-5 mb-lg-0">
                   <div class="blog_left_sidebar">
-                    {% get_blogs 0 9 1  as blogs %}
+                    <h3 style="text-align: center;margin-bottom: 50px;">
+                    {% if no_result %}
+                   {{ no_result }}
+                   {% endif %}
+                  </h3>
+
                     {% for blog in blogs %}
+                    
+                 
                       <article class="blog_item">
                         <div class="blog_item_img">
                           <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
@@ -57,6 +98,7 @@
                         </div>
                       </article>
                     {% endfor %}
+                    
                       
                       <!-- <article class="blog_item">
                         <div class="blog_item_img">
@@ -143,29 +185,39 @@
                       </article> -->
                       
 
-
+                      
                       <nav class="blog-pagination justify-content-center d-flex">
                           <ul class="pagination">
                               <li class="page-item">
-                                  <a href="#" class="page-link" aria-label="Previous">
+                                {% if blogs.has_previous %}
+                                  <a href="?page={{ blogs.previous_page_number }}" class="page-link" aria-label="Previous">
                                       <span aria-hidden="true">
-                                          <span class="ti-arrow-left"></span>
+                                          <span class="ti-arrow-left">&laquo;</span>
                                       </span>
                                   </a>
+                                {% endif %}
                               </li>
                               <li class="page-item">
-                                  <a href="#" class="page-link">1</a>
+                              {% for i in blogs.paginator.page_range %}
+                                {% if i == blogs.number %}
+                                  <a href="#" class="page-link">{{ i }}</a>
                               </li>
+                              {% else %}
                               <li class="page-item active">
-                                  <a href="#" class="page-link">2</a>
+                                  <a href="?page={{ i }}" class="page-link">{{ i }}</a>
                               </li>
+                              {% endif %}
+                              {% endfor %}
                               <li class="page-item">
-                                  <a href="#" class="page-link" aria-label="Next">
+                                {% if blogs.has_next %}
+                                  <a href="?page={{ blogs.next_page_number }}" class="page-link" aria-label="Next">
                                       <span aria-hidden="true">
-                                          <span class="ti-arrow-right"></span>
+                                          <span class="ti-arrow-right">&raquo;  </span>
                                       </span>
                                   </a>
+                                {% endif %}
                               </li>
+                             
                           </ul>
                       </nav>
                   </div>

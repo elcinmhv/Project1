@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+{% block title %}Registration Form{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form method="post" action="" enctype="multipart/form-data" class="registration-form">
+                {% csrf_token %}
+                {{ error }}
+                <h2 class="form-title">Login Form</h2>
+                <div class="form-fields">
+                    {% for form in forms %}
+                    <div class="form-group">
+                        {{ form.label_tag }}
+                        {{ form }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="btn btn-success" style="margin-bottom: 10px; display: block;">Login
+                </button> 
+                <a href="{% url 'register' %}" style="margin-left: 10px; display: inline-block; vertical-align: middle;">Hesabınız yoxdur?</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ <!-- <a class="btn btn-primary social-button" href="{% url 'social:begin' 'google-oauth2' %}" style="margin-bottom: 10px; display: block;">Login with Google</a> -->

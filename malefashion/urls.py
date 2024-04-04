@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from core.urls import urlpatterns as core_urls
 from user.urls import urlpatterns as user_urls
+from core.api.urls import urlpatterns as core_api_urls
 from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,9 +34,11 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
      path('admin/', admin.site.urls),
      path('',include(core_urls)),
-     path('',include('user.urls')),
-     path('rosetta/',include('rosetta.urls')),
-     path('i18n/',include('django.conf.urls.i18n'))
+     path('',include(user_urls)),
+     path('api-auth/',include('rest_framework.urls')),
+     path('api/',include(core_api_urls)),
+     path('', include('social_django.urls', namespace='social')),
+    #  path('i18n/',include('django.conf.urls.i18n'))
 
 )
 

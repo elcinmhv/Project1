@@ -1,5 +1,8 @@
 from django.urls import path
-from core.views import index,contact,blog,blogdetails,elements,tracking,category,singleproduct,checkout,cart,faq
+from core.views import (
+    index,contact,blog,blogdetails,elements,tracking,category,singleproduct,checkout,cart,FAQView,
+    all_search,export_blogs_excel
+    )
 from django.conf import settings
 from core import views
 from django.views.i18n import set_language
@@ -18,8 +21,10 @@ urlpatterns=[
    path('singleproduct/',singleproduct,name='single-product'),
    path('checkout/',checkout,name='checkout'),
    path('cart/',cart,name='cart'),
-   path('faq/', faq, name='faq'),
-   path('set_language',set_language,name='set_language')
+   path('faq/', FAQView.as_view(), name='faq'),
+   path('set_language',set_language,name='set_language'),
+   path('all_search',all_search,name='all_search'),
+   path('export_blogs_excel',export_blogs_excel,name='export_blogs_excel')
 
    
 

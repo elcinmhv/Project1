@@ -1,45 +1,64 @@
-from django.shortcuts import redirect, render
-from user.forms import RegisterForm
-
+from django.contrib import messages
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
+from .forms import RegisterForm,LoginForm
 # Create your views here.
 
 
+
 def register(request):
-    form=RegisterForm()
-    # if request.METHOD=='POST':
-    #     form=RegisterForm(request.POST)
+    context = {
 
-    context={
-        'form':form
+        'title': 'Register',
+
+        'form': RegisterForm
+
     }
-    return render(request,'register.html',context=context)
-    # context = {
 
-    #     'title': 'Register',
+    if request.method == 'POST':
 
-    #     'form': RegisterForm()
+        if request.POST['password'] != request.POST['confirm_password'] :
 
-    # }
+            context['error'] = 'Passwords do not match'
 
-    # if request.method == 'POST':
+            return render(request, 'register.html', context)
+        
 
-    #     if request.POST['password'] != request.POST['confirm_password']:
+        else:
 
-    #         context['error'] = 'Passwords do not match'
+            form = RegisterForm(request.POST, request.FILES)
 
-    #         return render(request, 'register.html', context  )       
-    #     else:
+            if form.is_valid():
 
-    #         form = RegisterForm(request.POST, request.FILES)
+                user = form.save(commit=False)
 
-    #         if form.is_valid():
+                user.set_password(user.password)
 
-    #             user = form.save()
+                user.save()
 
-    #             user.set_password(user.password)
+                return redirect('login')
 
-    #             user.save()
+    return render(request, 'register.html', context)
 
-    #             return redirect('index')
 
-    # return render(request, 'register.html', context)
+
+def login(request):
+    context={
+        'forms':LoginForm()
+    }
+    if request.method=='POST':
+        alma=authenticate(username=request.POST['username'],password=request.POST['password'])
+        if alma:
+            auth_login(request,alma)
+            return redirect('index')
+        else:
+            context['error']='Invalid Username or Password'
+    
+    return render(request,'login.html',context)
+
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
+           

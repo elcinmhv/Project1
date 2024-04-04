@@ -7,6 +7,7 @@ from core.models import (
     FAQ
 )
 from modeltranslation.admin import TranslationAdmin
+from excel_response import ExcelResponse
 # Register your models here.
 
 admin.site.register(Category)
@@ -68,8 +69,16 @@ class ProductAdmin(admin.ModelAdmin):
         return False
 # @admin.register(Blog)
 class BlogAdmin(TranslationAdmin):
-    list_display=['title','slug',]
-    fields=['title','description','image','is_active']
+    list_display=['title','slug','created_at']
+    fields=['title','description','image','is_active','category']
+    actions=['excel_export']
+
+    def excel_export(self, request, queryset):
+        data=[]
+        for blog in queryset:
+            data.append([blog.title, blog.slug, blog.created_at])
+        return ExcelResponse(data,output_filename='blogs')
+    # excel_export.short_description = "Melumatlari Excele chixartmaq"
 
 
 class FAQAdmin(TranslationAdmin):
@@ -82,3 +91,6 @@ admin.site.register(Product,ProductAdmin)
 admin.site.register(FAQ,FAQAdmin)
 admin.site.site_header='MaleFashion administration'
 admin.site.site_title='MaleFashion administration'
+
+
+permissions = [("can_deliver_pizzas", "Can deliver pizzas")]

@@ -10,18 +10,25 @@
     <div class="top_menu">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-5">
             <div class="float-left">
               <p>Phone: +01 256 25 235</p>
               <p>email: info@eiser.com</p>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-7">
             <div class="float-right">
              
               <ul class="right_side">
+                {% if user.is_authenticated %}
+                <li style="background-color:red;">
+                  <a href="{% url 'logout' %}">
+                    <strong>sign out</strong>
+                  </a>
+                </li>
+                {% else %}
                 <li style="background-color:green;">
-                  <a href="cart.html">
+                  <a href="{% url 'login' %}">
                     <strong>sign in</strong>
                   </a>
                 </li>
@@ -30,6 +37,17 @@
                     <strong>sign up</strong>
                   </a>
                 </li>
+                <li>
+                  <a href="{% url 'social:begin' 'google-oauth2' %}">
+                    <i class="fab fa-google"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'social:begin' 'facebook' %}">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </li>
+                {% endif %}
                 <li>
                   <a href="cart.html">
                     <strong>gift card</strong>
@@ -71,9 +89,9 @@
           </button>
           
           <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent" style="margin-left: 50px;">
             <div class="row w-100 mr-0">
-              <div class="col-lg-7 pr-0">
+              <div class="col-lg-7 pr-0" style="padding-left: 80px;" >
                 <ul class="nav navbar-nav center_nav pull-right">
                   <li class="nav-item active">
                     <a class="nav-link" href="{% url 'index' %}">Home</a>
@@ -115,6 +133,15 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact'%}">Contact</a>
+                  </li>
+                  <li class="nav-item">
+                    <div style="margin-top: 25px;display: flex;align-items: center;">
+                    <form action="{% url 'all_search' %}" method="post" style="display: flex;">
+                      {% csrf_token %}
+                      <input name="all-search" style="width: 155px;text-align: center;"placeholder='Axtarış...' class="form-control">
+                      <button type="submit" style="background-color:dodgerblue;color: white;"> Axtar</button>
+                    </form>
+                  </div>
                   </li>
                 </ul>
               </div>

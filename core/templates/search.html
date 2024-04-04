@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+
+
+{% block content %}
+{% if not blogs and not categories %}
+<h3 role="alert" class=" alert alert-danger">netice yoxdur</h3>
+{% endif %}
+{% if blogs.count > 0 %}
+<h3><strong>Blog uzre axtarış neticeleri</strong></h3>
+{% for blog in blogs %}
+                 
+    <article class="blog_item">
+    <div class="blog_item_img">
+        <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
+        <a href="#" class="blog_item_date">
+        <h3>{{ blog.created_at|date:'d' }}</h3>
+        <p>{{ blog.created_at|date:'M' }}</p>
+        </a>
+    </div>
+    
+    <div class="blog_details">
+        <a class="d-inline-block" href="{% url 'blogdetails' blog.slug %}">
+            <h2>{{ blog.title }}</h2>
+        </a>
+        <p>{{ blog.truncate_desc}}</p>
+        <ul class="blog-info-link">
+            <li><a href="#"><i class="ti-user"></i> Travel, Lifestyle</a></li>
+            <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
+        </ul>
+    </div>
+    </article>
+{% endfor %}
+{% endif %}
+{% if categories.count > 0 %}
+<h3><strong>Mehsul uzre axtarış neticeleri</strong></h3>
+{% for category in categories %}
+<div class="col-lg-4 col-md-6">
+  <div class="single-product">
+    <div class="product-img">
+      <img
+        class="card-img"
+        src="{{ category.image.url }}"
+        alt=""
+      />
+      <div class="p_icon">
+        <a href="#">
+          <i class="ti-eye"></i>
+        </a>
+        <a href="#">
+          <i class="ti-heart"></i>
+        </a>
+        <a href="#">
+          <i class="ti-shopping-cart"></i>
+        </a>
+      </div>
+    </div>
+    <div class="product-btm">
+      <a href="#" class="d-block">
+        <h4>{{ category.name }}</h4>
+      </a>
+      <div class="mt-3">
+        <span class="mr-4">${{ category.price }}</span>
+        <!-- <del>$35.00</del> -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+                      
+{% endblock %}

@@ -56,7 +56,7 @@ class Product(BaseModel):
     color=models.ManyToManyField(Color,)
     size=models.CharField(max_length=50,choices=SIZE,default='M')
     like=models.IntegerField(default=0)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,)
     image=models.ImageField(upload_to='media/product/')
 
     class Meta:
@@ -81,6 +81,7 @@ class Blog(BaseModel):
     title=models.CharField(max_length=100)
     description=models.TextField()
     image=models.ImageField(upload_to='media/blog/')
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,blank=True,null=True )
     class Meta:
         verbose_name=_('Blog')
         verbose_name_plural=_('Blogs')
