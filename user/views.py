@@ -6,6 +6,7 @@ from .forms import RegisterForm,LoginForm
 
 
 
+
 def register(request):
     context = {
 

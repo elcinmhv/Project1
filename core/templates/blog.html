@@ -37,12 +37,12 @@
           {% csrf_token %}
           <input value="{% if start_date %}{{ start_date }}{% endif %}" name="start_date" type="date" class="form-control" style="width: auto; max-width: 120px;" placeholder="başlanğıc tarixi">
           <input value="{% if end_date %}{{ end_date }}{% endif %}"name="end_date" type="date" class="form-control" style="width: auto; max-width: 120px;" placeholder="bitiş tarixi">
-          <select name="category" class=""  style="width: auto; max-width: 120px;">
+          <select name="category" class=""  style="width: auto; max-width: 120px;" >
             <option value="">
               Seçin...
             </option>
             {% for category in categories %}
-            <option value="{{ category.id }}">
+            <option value="{% if category.id %}{{ category.id }}{% endif %}">
               {{ category.name }}
             </option>
             {% endfor %}

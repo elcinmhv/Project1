@@ -38,8 +38,10 @@ def blog(request):
         start_date=request.POST.get('start_date')
         end_date=request.POST.get('end_date')
         category=request.POST.get('category')
+        print('cat@@', category)
         if category:
             blogs=blogs.filter(category__id=category)
+            print('blog@@', blogs)
         if user_input:
             blogs=blogs.filter(title__icontains=user_input)
         if start_date and end_date:
@@ -47,6 +49,14 @@ def blog(request):
                 Q(created_at__date__gte=start_date)&
                 Q(created_at__date__lte=end_date)
             )
+        context={
+            'categories':Category.objects.filter(is_active=True),
+            'blogs':blogs,
+            'blog_count':len(blogs) ,
+            'no_result':'blog tapilmadi' if not blogs else None,
+
+        }
+        return render(request, 'blog.html', context=context)
     items_per_page=2
     paginator=Paginator(blogs,items_per_page)
     page=request.GET.get('page')
@@ -159,6 +169,10 @@ def export_blogs_excel(request):
 
 # class ModelExportView(ExcelView):
 #     model = Blog
+
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
 
 
 
