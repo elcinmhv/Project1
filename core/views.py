@@ -8,7 +8,13 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from excel_response import ExcelResponse,ExcelView
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    context = {
+        'products':Product.objects.filter(is_active='True').order_by('created_at',),
+        'blog':Blog.objects.filter(is_active='True').order_by('created_at',),
+        'products2':Product.objects.filter(is_active='True').order_by('-created_at',),
+        'products3':Product.objects.filter(is_active='True').order_by('created_at',),
+    }
+    return render(request,'index.html',context=context)
 def contact(request):
     if request.method=='POST':
         form=ContactUsForm(request.POST)
@@ -18,7 +24,7 @@ def contact(request):
         else:
             print('Form errors:  ', form.errors)
     context={
-        'contact_form':ContactUsForm,
+        'contact_form':ContactUsForm,   
         'contacts':Contact.objects.filter(is_active=True),
         'title':'Contact Page',
     }
@@ -52,7 +58,7 @@ def blog(request):
         context={
             'categories':Category.objects.filter(is_active=True),
             'blogs':blogs,
-            'blog_count':len(blogs) ,
+            'blog_count':blogs.count() ,
             'no_result':'blog tapilmadi' if not blogs else None,
 
         }
@@ -103,8 +109,14 @@ def category(request):
         'title':'Category'
     }
     return render(request,'category.html' ,context=context )
-def singleproduct(request):
-    return render(request,'single-product.html')
+def singleproduct(request,product_slug):
+    product=Product.objects.get(slug=product_slug)
+    context={
+        # 'name':product.name,
+        'product':product
+    }
+
+    return render(request,'single-product.html',context=context)
 def checkout(request):
     return render(request,'checkout.html')
 def cart(request):
@@ -157,15 +169,15 @@ def all_search(request):
 #         worksheet
     
 
-# def export_blogs_excel(request):
-#     response=ExcelResponse(Blog.objects.filter(is_active=True),output_filename='blogs')
-#     # response['Content-Disposition']='attachment; filename=blogs.xlsx' 
-#     return response
-
-
 def export_blogs_excel(request):
-    objs = Blog.objects.filter(is_active=True).values('id','title','category__name','created_at')
-    return ExcelResponse(objs)
+    response=ExcelResponse(Blog.objects.filter(is_active=True),output_filename='blogs')
+    # response['Content-Disposition']='attachment; filename=blogs.xlsx' 
+    return response
+
+
+# def export_blogs_excel(request):
+#     objs = Blog.objects.filter(is_active=True).values('id','title','category__name','created_at')
+#     return ExcelResponse(objs)
 
 # class ModelExportView(ExcelView):
 #     model = Blog

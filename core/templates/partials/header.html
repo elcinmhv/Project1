@@ -12,8 +12,8 @@
         <div class="row">
           <div class="col-lg-5">
             <div class="float-left">
-              <p>Phone: +01 256 25 235</p>
-              <p>email: info@eiser.com</p>
+              <p>Phone: {{ setting_data.phone }}</p>
+              <p>email: {{ setting_data.email }}</p>
             </div>
           </div>
           <div class="col-lg-7">
@@ -48,7 +48,7 @@
                   </a>
                 </li>
                 {% endif %}
-                <li>
+                <!-- <li>
                   <a href="cart.html">
                     <strong>gift card</strong>
                   </a>
@@ -57,9 +57,9 @@
                   <a href="tracking.html">
                     <strong>track order</strong>
                   </a>
-                </li>
+                </li> -->
                 <li>
-                  <a href="contact.html">
+                  <a href="{% url 'contact' %}">
                     <strong>Contact Us</strong>
                   </a>
                 </li>
@@ -79,7 +79,7 @@
         <nav class="navbar navbar-expand-lg navbar-light w-100">
           <!-- Brand and toggle get grouped for better mobile display -->
           <a class="navbar-brand logo_h" href="{% url 'index' %}">
-            <img src="{{ setting_data.logo }}" alt="" />
+            <img src="{{ setting_data.logo.url}}" alt="" />
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,15 +96,15 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="{% url 'index' %}">Home</a>
                   </li>
-                  <li class="nav-item submenu dropdown">
+                  <!-- <li class="nav-item submenu dropdown">
                     <a  href="{% url 'category' %}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                       aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu"> -->
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category' %}">Shop Category</a>
+                        <a class="nav-link" href="{% url 'category' %}">Shop</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'single-product' %}">Product Details</a>
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Product Details</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'checkout' %}">Product Checkout</a>
@@ -113,13 +113,13 @@
                         <a class="nav-link" href="{% url 'cart' %}">Shopping Cart</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                   </li>
                    
                   </li>
-                  <li class="nav-item submenu dropdown">
+                  <!-- <li class="nav-item submenu dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                       aria-expanded="false">Pages</a>
                     <ul class="dropdown-menu">
@@ -130,7 +130,7 @@
                         <a class="nav-link" href="{% url 'elements' %}">Elements</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact'%}">Contact</a>
                   </li>
@@ -167,13 +167,13 @@
                   </form>
                 </li>
               </div>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a href="#" class="icons">
                       <i class="ti-search" aria-hidden="true"></i>
                     </a>
-                  </li>
+                  </li> -->
 
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a href="#" class="icons">
                       <i class="ti-shopping-cart"></i>
                     </a>
@@ -189,7 +189,7 @@
                     <a href="#" class="icons">
                       <i class="ti-heart" aria-hidden="true"></i>
                     </a>
-                  </li>
+                  </li> -->
                   
                 </ul>
               </div>

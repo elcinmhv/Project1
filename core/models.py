@@ -51,8 +51,10 @@ class Color(BaseModel):
 
 
 class Product(BaseModel):
+    slug=models.SlugField(max_length=200, unique=True,null=True,blank=True)
     name=models.CharField(max_length=50)
     price=models.FloatField(help_text='ancaq reqem yazilmalidir')
+    description=models.TextField(null=True,blank=True)
     color=models.ManyToManyField(Color,)
     size=models.CharField(max_length=50,choices=SIZE,default='M')
     like=models.IntegerField(default=0)
@@ -74,7 +76,13 @@ class Product(BaseModel):
     @classmethod
     def increaseprice(cls):
         cls.objects.update(price=F('price')+5)
-Product.increaseprice() 
+# Product.increaseprice() 
+    def save(self,*args,**kwargs):
+        from core.utils.replace_letter import replace_letter
+        if self.slug or  not self.slug:
+                self.slug=replace_letter((self.name.lower()))
+
+        return super(Product,self).save(*args,**kwargs)
 
 class Blog(BaseModel):
     slug=models.SlugField(max_length=100,unique=True,blank=True,null=True)
@@ -167,6 +175,11 @@ class FAQ(BaseModel):
         verbose_name_plural='FAQs'
     def __str__(self):
         return self.question
+    
+class Subscriber(BaseModel):
+    email = models.EmailField()
+    def __str__(self):
+        return self.email
         
 
         

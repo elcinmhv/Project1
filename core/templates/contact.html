@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static%}
 (% load i18n %)
-{% block content%}
+
 {% block title %}
 {{ title }}
 {% endblock %}
+{% block content%}
     <!--================Home Banner Area =================-->
     <section class="banner_area">
       <div class="banner_inner d-flex align-items-center">
@@ -17,8 +18,8 @@
               <p>Very us move be blessed multiply night</p>
             </div>
             <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="contact.html">Contact Us</a>
+              <a href="{% url 'index' %}">Home</a>
+              <a href="{% url 'contact'%}">Contact Us</a>
             </div>
           </div>
         </div>
@@ -27,7 +28,7 @@
     <!--================End Home Banner Area =================-->
 
     <!-- ================ contact section start ================= -->
-  <section class="section_gap">
+  <!-- <section class="section_gap">
     <div class="container">
       <div class="d-none d-sm-block mb-5 pb-4">
         <div id="map" style="height: 480px;"></div>
@@ -55,7 +56,7 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap"></script>
         
-      </div>
+      </div> -->
 
 
       <div class="row">

@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from core.models import (
     Category,Product,Color,Blog,Contact,Setting,ContactUs,
-    FAQ
+    FAQ,Subscriber
 )
 from modeltranslation.admin import TranslationAdmin
 from excel_response import ExcelResponse
@@ -18,21 +18,22 @@ admin.site.register(Color)
 admin.site.register(Contact)
 admin.site.register(Setting)
 # admin.site.register(FAQ)
+admin.site.register(Subscriber)
 
 
 
 
 
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display=['name','price','category','get_colors','size']
+class ProductAdmin(TranslationAdmin):
+    list_display=['name','price','category','get_colors','size','slug']
     search_fields=['name','price','category__name','color__name','size',]
     list_filter=['category','color','price','size']
     ordering=['price','category']
     # readonly_fields=['like']
     fieldsets=(
         ('Main Information', {
-            'fields':('name','price','category','color','size','image','is_active') 
+            'fields':('name','price','description','category','color','size','image','is_active','slug') 
         }),
         ('Additional Information', {
             'fields':('like',)

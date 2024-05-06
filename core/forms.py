@@ -17,7 +17,7 @@
 
 
 from django import forms
-from .models import ContactUs
+from .models import ContactUs, Subscriber
 
 class ContactUsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -45,4 +45,12 @@ class ContactUsForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Enter your name', 'class': 'form-control', 'name': 'name', 'id': 'name', 'type': 'text'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Enter email address', 'class': 'form-control', 'name': 'email', 'id': 'email', 'type': 'email'}),
             'subject': forms.Select(attrs={'placeholder': 'Enter Subject', 'class': "form-control", 'name': "subject", 'id': "subject"})
+        }
+
+class SubscriberForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'placeholder':'Your Email Address', 'class':'form-control'}),
         }
